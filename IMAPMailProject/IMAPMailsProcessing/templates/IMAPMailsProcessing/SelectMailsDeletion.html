@@ -1,0 +1,64 @@
+{% load static %}
+{% include 'IMAPMailsProcessing/directives/header.html' %}
+{% include 'IMAPMailsProcessing/directives/container.html' %}
+{% block content %}
+
+<div id="listData">
+<link rel="stylesheet" href="{% static 'IMAPMailsProcessing/css/bootstrap.min.css' %}">
+<script src="{% static 'IMAPMailsProcessing/js/jquery-3.2.1.slim.min.js' %}"></script>
+<script src="{% static 'IMAPMailsProcessing/js/bootstrap.min.js' %}"></script>
+
+<!-- plugin -->
+<script src="{% static 'IMAPMailsProcessing/js/jquery.bootstrap-duallistbox.js' %}"></script>
+
+<link rel="stylesheet" type="text/css" href="{% static 'IMAPMailsProcessing/css/bootstrap-duallistbox.css' %}">
+
+<!-- Demo -->
+<div class="container">
+  <div class="row" style="margin-top: 0px;">
+    <div class="col">
+      <br><br>
+      <h2> Deleting Mails from your Inbox </h2>
+      <p><strong>Deletion Process:</strong> Select all the common unwanted From list group in your INBOX for deletion</p>
+      <hr/>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 40px;">
+    <div class="col">
+      <form id="deleteform" method="post" action="{% url 'delete' %}">
+        {% csrf_token %}
+        <select multiple="multiple" size="10" name="from[]" title="from" style="height: 222px; width: 546px;">
+            {% for record in fromaddr %}
+              <option value='{{record.fromaddress}}'> 
+                {{record.fromaddress}}
+              </option>
+            {% endfor %}
+       </select>
+        <br>
+        <div class="row">
+          <div class="col-md-6 offset-md-6">
+            <button type="submit" name="submit" value="Submit" class="btn btn-primary w-100">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  var demo1 = $('select[name="from[]"]').bootstrapDualListbox({
+    nonSelectedListLabel: 'Available From list group in your INBOX',
+    selectedListLabel: 'Commonly selected From list address ready for Deletion',
+    preserveSelectionOnMove: 'moved',
+    moveAllLabel: 'Move all',
+    removeAllLabel: 'Remove all'
+  });
+  /*$("#deleteform").submit(function() {
+        //alert($('[name="from[]"]').val());
+        //return false;
+      });*/
+</script>
+
+</div>
+</div>
+{% endblock %}

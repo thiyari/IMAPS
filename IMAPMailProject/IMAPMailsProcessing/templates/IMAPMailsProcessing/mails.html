@@ -1,0 +1,48 @@
+{% load static %}
+{% include 'IMAPMailsProcessing/directives/header.html' %}
+{% include 'IMAPMailsProcessing/directives/container.html' %}
+{% block content %}
+<html>
+<head>
+</head>
+<body>
+<div id="listData">
+<div class="container">
+<br>
+<h1>Retrieving Your Mails</h1>
+</div>
+<table class="table table-light table-hover">
+        <thead>
+        <tr>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- use for loop here -->
+        {% for record in records %}
+        <tr>
+            <td class="content-div" width="20%">
+                <span class="column">
+                    {{record.fromaddress}}
+            </span>
+            </td>
+            <td class="content-div" width="50%">
+                <span class="column">
+                    {{record.subject}}
+                </span>
+            </td>
+            <td class="content-div" width="30%">
+                <span class="date">
+                    {{record.date}}   
+                </span>
+            </td>
+        </tr>
+        {% endfor %} 
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
+{% endblock %}

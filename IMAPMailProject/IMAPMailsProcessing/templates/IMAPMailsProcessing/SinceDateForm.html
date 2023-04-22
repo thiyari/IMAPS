@@ -1,0 +1,44 @@
+{% load static %}
+{% include 'IMAPMailsProcessing/directives/header.html' %}
+{% include 'IMAPMailsProcessing/directives/container.html' %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>jQuery DatePicker</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{% static 'IMAPMailsProcessing/css/base/jquery-ui.css' %}">
+<script src="{% static 'IMAPMailsProcessing/js/jquery-1.12.4.js' %}"></script>
+<script src="{% static 'IMAPMailsProcessing/js/jquery-ui.js' %}"></script>
+        <script>
+            $(function () {
+                $("#datepicker").datepicker({ dateFormat: 'dd-MM-yy' });
+            });
+        </script>
+
+    </head>
+    <body>
+      <div id="listData">
+      <div class="container">
+        <br><br>
+        <div class="form-group">
+        <div class="form-floating">
+        <form method="post" action="{% url 'date' %}">
+          {% csrf_token %}
+            <div class="row align-items-center g-3">
+                    <div class="col-auto">
+                      <input class="form-control" type="text" name="date" id="datepicker" placeholder="Search By Date" required>
+                    </div>
+                      <div class="col-auto">
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    </div>
+            </div>
+        </form>
+      </div>
+    </div>
+            </div>
+          </div>
+    </body>
+</html>
+{% endblock %}
